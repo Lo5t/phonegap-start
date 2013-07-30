@@ -1,42 +1,283 @@
 <!DOCTYPE html>
-<!--
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-     KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
 <html>
     <head>
+        <title>Tiny Site</title>
         <meta charset="utf-8" />
-        <meta name="format-detection" content="telephone=no" />
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <title>Hello World</title>
+        <script type="text/javascript" language="JavaScript">
+        
+        window.onload = pageSetUp;
+
+var currentlink;
+var timeout;
+var key = null;
+var order = null;
+var price = null;
+
+function pageSetUp() {
+    //document.getElementsById('canceltd').onclick = show;
+    var links = document.getElementsByTagName('td');
+    //document.getElementsByTagName('a');
+    for (var i = 0; i < links.length; i++) {
+        links[i].onclick = calc;
+    }
+}
+
+function calc() {
+    //alert(this.className);
+    switch (this.className) {
+        case "keypad":
+            if (key === null) {
+                key = parseInt(this.innerHTML);
+            } else {
+                key += this.innerHTML;
+            }
+            break;
+        case "cancel":
+            deleteResult();
+            document.getElementById("result").children[1].innerHTML = 0;
+            price = null;
+            key = null;
+            order = null;
+            break;
+        case "food":
+            if (key === null) {
+                key = 1;
+            }
+            price = this.id;
+            order = this.innerHTML;
+            displayResult();
+            price = null;
+            key = null;
+            order = null;
+            break;
+        case "drink":
+            if (key === null) {
+                key = 1;
+            }
+            price = this.id;
+            order = this.innerHTML;
+            displayResult();
+            price = null;
+            key = null;
+            order = null;
+            break;
+        case "enter":
+            deleteResult();
+            price = null;
+            key = null;
+            order = null;
+            break;
+    }
+    return false;
+}
+
+function deleteResult() {
+    var table = document.getElementById("samplz");
+    var tabletr = table.getElementsByTagName('tr');
+    var num = table.rows.length;
+    for (var i = 0; i < num; i++) {
+        if (tabletr[0].id != "result") {
+            table.deleteRow(0);
+        }
+    }
+}
+
+function displayResult() {
+    var table = document.getElementById("samplz");
+    var tabletr = table.getElementsByTagName('tr');
+    var tableslot = inArray(order, tabletr);
+    if (tableslot === -1) {
+        document.getElementById("result").children[1].innerHTML = 0;
+        tableslot = table.rows.length;
+        var row = table.insertRow(0);
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        var cell3 = row.insertCell(2);
+        cell1.innerHTML = order;
+        cell2.innerHTML = parseFloat(key);
+        cell3.innerHTML = key * price;
+        var field2 = parseFloat(document.getElementById("result").children[1].innerHTML);
+        var value3 = parseFloat(field2);
+        document.getElementById("result").children[1].innerHTML = value3 + (key) * price;
+    } else {
+        var field = parseInt(tabletr[tableslot].children[1].innerHTML);
+        var value1 = parseInt(field);
+        tabletr[tableslot].children[1].innerHTML = value1 + parseFloat(key);
+        var field1 = parseFloat(tabletr[tableslot].children[2].innerHTML);
+        var value2 = parseFloat(field1);
+        tabletr[tableslot].children[2].innerHTML = value2 + (parseFloat(key)) * price;
+        var field2 = parseFloat(document.getElementById("result").children[1].innerHTML);
+        var value3 = parseFloat(field2);
+        document.getElementById("result").children[1].innerHTML = value3 + (parseFloat(key)) * price;
+    }
+
+}
+
+function show() {
+    var links = document.getElementsByTagName('div');
+    for (var i = 0; i < links.length; i++) {
+        fadeout(links[i]);
+    }
+}
+
+function fadeout(element) {
+    var op = 1; // initial opacity
+    var timer = setInterval(function () {
+        if (op <= 0.001) {
+            clearInterval(timer);
+            element.style.display = 'none';
+        }
+        element.style.opacity = op;
+        element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+        op -= op * 0.1;
+    }, 30);
+}
+
+function inArray(needle, haystack) {
+    var returnVal = -1;
+    for (var i = 0; i < haystack.length; i++) {
+        if (haystack[i].firstChild.innerHTML === needle) {
+            returnVal = [i];
+        }
+    }
+    return returnVal;
+}
+
+/*
+$(function () {
+  $('#cancel').click(function () {
+     var current = $(this);     
+     var links = document.getElementsByTagName('div');
+     for(var i=0; i<links.length; i++){
+        links[i].animate({top: -30,left: 0},2000,function() {});} 
+  });
+});*/
+        
+        </script>
     </head>
     <body>
-        <div class="app">
-            <h1>PhoneGap</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
-            </div>
-        </div>
-        <script type="text/javascript" src="phonegap.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript">
-            app.initialize();
-        </script>
+        <div id="keypad">
+    <table id="keypadtable">
+        <tr>
+            <td class="keypad">1</td>
+            <td class="keypad">2</td>
+            <td class="keypad">3</td>
+        </tr>
+        <tr>
+            <td class="keypad">4</td>
+            <td class="keypad">5</td>
+            <td class="keypad">6</td>
+        </tr>
+        <tr>
+            <td class="keypad">7</td>
+            <td class="keypad">8</td>
+            <td class="keypad">9</td>
+        </tr>
+        <tr>
+            <td class=""></td>
+            <td class="keypad">0</td>
+            <td class=""></td>
+        </tr>
+    </table>
+</div>
+<div id="food">
+    <table id="foodtable" cellpadding="5" cellspacing="3">
+        <tr>
+            <td class="food" id="12.50">Winer</td>
+            <td class="food" id="12.50">Hot Dog</td>
+        </tr>
+        <tr>
+            <td class="food" id="12.50">Nacho</td>
+            <td class="food" id="12.50">Popcorn</td>
+        </tr>
+        <tr>
+            <td class="food" id="12.50">Winer</td>
+            <td class="food" id="12.50">Hot Dog</td>
+        </tr>
+        <tr>
+            <td class="food" id="12.50">Nacho</td>
+            <td class="food" id="12.50">Popcorn</td>
+        </tr>
+        <tr>
+            <td class="food" id="12.50">Winer</td>
+            <td class="food" id="12.50">Hot Dog</td>
+        </tr>
+        <tr>
+            <td class="food" id="12.50">Winer</td>
+            <td class="food" id="12.50">Hot Dog</td>
+        </tr>
+        <tr>
+            <td class="food" id="12.50">Nacho</td>
+            <td class="food" id="12.50">Popcorn</td>
+        </tr>
+        <tr>
+            <td class="food" id="12.50">Winer</td>
+            <td class="food" id="12.50">Hot Dog</td>
+        </tr>
+        <tr>
+            <td class="food" id="12.50">Nacho</td>
+            <td class="food" id="12.50">Popcorn</td>
+        </tr>
+        <tr>
+            <td class="food" id="12.50">Winer</td>
+            <td class="food" id="12.50">Hot Dog</td>
+        </tr>
+    </table>
+</div>
+<div id="drink">
+    <table id="drinkstable" cellpadding="5" cellspacing="3">
+        <tr>
+            <td class="drink" id="12.50">Cola</td>
+            <td class="drink" id="12.50">Spezi</td>
+        </tr>
+        <tr>
+            <td class="drink" id="12.50">Wasser</td>
+            <td class="drink" id="12.50">Limo</td>
+        </tr>
+        <tr>
+            <td class="drink" id="12.50">Cola</td>
+            <td class="drink" id="12.50">Spezi</td>
+        </tr>
+        <tr>
+            <td class="drink" id="12.50">Wasser</td>
+            <td class="drink" id="12.50">Limo</td>
+        </tr>
+        <tr>
+            <td class="drink" id="12.50">Cola</td>
+            <td class="drink" id="12.50">Spezi</td>
+        </tr>
+        <tr>
+            <td class="drink" id="12.50">Wasser</td>
+            <td class="drink" id="12.50">Limo</td>
+        </tr>
+        <tr>
+            <td class="drink" id="12.50">Cola</td>
+            <td class="drink" id="12.50">Spezi</td>
+        </tr>
+    </table>
+</div>
+<div id="enter">
+    <table id="entertable" cellpadding="5" cellspacing="3">
+        <tr>
+            <td class="enter">Eingabe</td>
+        </tr>
+    </table>
+</div>
+<div id="cancel">
+    <table id="canceltable" cellpadding="5" cellspacing="3">
+        <tr>
+            <td class="cancel" id="canceltd">Cancel</td>
+        </tr>
+    </table>
+</div>
+<div id="stats">
+    <table id="samplz">
+        <tr id="result">
+            <td>Sum</td>
+            <td>0</td>
+        </tr>
+    </table>
+</div>
     </body>
 </html>
