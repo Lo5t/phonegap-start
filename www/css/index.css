@@ -128,13 +128,7 @@ div {
     color:#CCCCCC;
     -webkit-border-radius: 3px;
 }
-#stats {
-    position: absolute;
-    left: 0;
-    top: 40%;
-    width: 25%;
-    height: 40%;
-}
+
 #food {
     position: absolute;
     top: 0;
@@ -222,12 +216,18 @@ div {
     border:1px solid #000000;
     font-size:18px;
     font-weight:bold;
-    width:180px;
-    height:120px;
     cursor:pointer;
     background-color:#8C1717;
     color:#CCCCCC;
     -webkit-border-radius: 15px;
+}
+
+#stats {
+    position: absolute;
+    left: 0;
+    top: 40%;
+    width: 25%;
+    height: 40%;
 }
 #samplz {
     width: 100%;
