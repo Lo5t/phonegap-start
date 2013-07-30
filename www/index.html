@@ -88,7 +88,6 @@ function displayResult() {
     var tabletr = table.getElementsByTagName('tr');
     var tableslot = inArray(order, tabletr);
     if (tableslot === -1) {
-        document.getElementById("result").children[1].innerHTML = 0;
         tableslot = table.rows.length;
         var row = table.insertRow(0);
         var cell1 = row.insertCell(0);
