@@ -7,12 +7,14 @@
         <script type="text/javascript" language="JavaScript">
         
         window.onload = pageSetUp;
-//how smart and bloody commit
+//how smart and bloody commitgit 
 var currentlink;
 var timeout;
 var key = null;
 var order = null;
 var price = null;
+var showpopup = null;
+var timeoutID;
 
 function pageSetUp() {
     //document.getElementsById('canceltd').onclick = show;
@@ -20,10 +22,41 @@ function pageSetUp() {
     //document.getElementsByTagName('a');
     for (var i = 0; i < links.length; i++) {
         links[i].onclick = calc;
+        links[i].onmousedown = settings;
     } 
 }
 
+function settings(){
+    showpopup = 1;
+    if(this.className === "food" || this.className === "drink"){
+        timeoutID = window.setTimeout(settingsPopUp, 2000, this.innerHTML,this.id);
+    }
+    return false;
+}
+
+function settingsPopUp(Name, Value){
+  //lert(this.id);
+  var links = document.getElementsByTagName('div');
+    for (var i = 0; i < links.length; i++) {
+        if (links[i].id === "setting" || links[i].id === "cancel" || links[i].id === "eneter"){
+            links[i].className = "";
+        }else{
+            links[i].style.opacity = 0.6;
+            //links[i].className = "hidden";
+        }
+        
+    }
+    //alert("That was really slow!");
+    var Namebox = document.getElementById("Name");
+  Namebox.value = Name;
+  var Pricebox = document.getElementById("Price");
+  Pricebox.value = Value;
+  
+}
+
 function calc() {
+    window.clearTimeout(timeoutID);
+    if(showpopup === null){
     //alert(this.className);
     switch (this.className) {
         case "keypad":
@@ -68,6 +101,7 @@ function calc() {
             key = null;
             order = null;
             break;
+    }
     }
     return false;
 }
@@ -151,7 +185,12 @@ $(function () {
      for(var i=0; i<links.length; i++){
         links[i].animate({top: -30,left: 0},2000,function() {});} 
   });
-});*/
+});
+var links = document.getElementsByTagName('div');
+    for (var i = 0; i < links.length; i++) {
+        links[i].className = "hidden";
+    }
+*/
         
         </script>
     </head>
@@ -278,5 +317,17 @@ $(function () {
         </tr>
     </table>
 </div>
+<div id="setting" class="hidden">
+    <table id="settingtable">
+        <tr class="setting">
+            <td class="">Name</td>
+            <td class="">Price</td>
+        </tr>
+        <tr class="setting">
+            <td class=""><input type="text" id="Name" value=""></td>
+            <td class=""><input type="text" id="Price" value=""></td>
+        </tr>
+    </table>
+    </div>
     </body>
 </html>
