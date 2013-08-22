@@ -158,6 +158,9 @@ function deleteResult() {
 function displayResult() {
     var table = document.getElementById("samplz");
     var tabletr = table.getElementsByTagName('tr');
+    if(tabletr.lenght > 1){
+        document.getElementById("result").children[1].innerHTML = 0;
+    }
     var tableslot = inArray(order, tabletr);
     if (tableslot === -1) {
         tableslot = table.rows.length;
