@@ -126,9 +126,9 @@ function calc() {
                 order = null;
             }else{
                 var Namebox = document.getElementById("Name");
-                elm.className = Namebox.value;
+                elm.innerHTML = Namebox.value;
                 var Pricebox = document.getElementById("Price");
-                elm.className = Pricebox.value;
+                elm.id = Pricebox.value;
                 var links = document.getElementsByTagName('div');
                 for (var i = 0; i < links.length; i++) {
                     if (links[i].id === "setting"){
