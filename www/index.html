@@ -33,9 +33,9 @@ function pageSetUp() {
 }
 
 function settings(){
-    if(elm.className === "food" || elm.className === "drink"){
+    if(this.className === "food" || this.className === "drink"){
         elm = this;
-        timeoutID = window.setTimeout(settingsPopUp, 2000, this.innerHTML,this.id);
+        timeoutID = window.setTimeout(settingsPopUp, 2000, elm.innerHTML,elm.id);
     }
     return false;
 }
