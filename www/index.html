@@ -49,7 +49,6 @@ function settingsPopUp(Name, Value){
             links[i].style.opacity = 0.6;
             //links[i].className = "hidden";
         }
-        
     }
     //alert("That was really slow!");
     var Namebox = document.getElementById("Name");
@@ -89,7 +88,7 @@ function calc() {
                         links[i].style.opacity = 1;
                     }
                 }
-                showpopup = 1;
+                showpopup = null;
             }
             break;
         case "food":
@@ -133,7 +132,7 @@ function calc() {
                         links[i].style.opacity = 1;
                     }
                 }
-                showpopup = 1;
+                showpopup = null;
             }
             break;
     }
