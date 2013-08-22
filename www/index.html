@@ -22,7 +22,8 @@ function pageSetUp() {
     //document.getElementsByTagName('a');
     document.addEventListener("touchend", function(e) { e.preventDefault(); }, false);
     for (var i = 0; i < links.length; i++) {
-        links[i].onclick = calc;
+        links[i].addEventListener("onclick", calc, false);
+        //links[i].onclick = calc;
         //links[i].touchstart = settings;
         links[i].addEventListener("touchstart", settings, false);
     } 
