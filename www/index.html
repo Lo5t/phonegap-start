@@ -20,9 +20,9 @@ function pageSetUp() {
     //document.getElementsById('canceltd').onclick = show;
     var links = document.getElementsByTagName('td');
     //document.getElementsByTagName('a');
-    document.addEventListener("touchend", function(e) { e.preventDefault(); }, false);
+    //document.addEventListener("touchend", function(e) { e.preventDefault(); }, false);
     for (var i = 0; i < links.length; i++) {
-        links[i].addEventListener("onclick", calc, false);
+        links[i].addEventListener("click", calc, false);
         //links[i].onclick = calc;
         //links[i].touchstart = settings;
         //links[i].addEventListener("touchstart", settings, false);
