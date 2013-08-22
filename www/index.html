@@ -75,6 +75,12 @@ function calc() {
             break;
         case "cancel":
             if(showpopup === null){
+                deleteResult();
+                document.getElementById("result").children[1].innerHTML = 0;
+                price = null;
+                key = null;
+                order = null;
+            }else{
                 var links = document.getElementsByTagName('div');
                 for (var i = 0; i < links.length; i++) {
                     if (links[i].id === "setting" ){
@@ -84,12 +90,6 @@ function calc() {
                     }
                 }
                 showpopup = 1;
-            }else{
-                deleteResult();
-                document.getElementById("result").children[1].innerHTML = 0;
-                price = null;
-                key = null;
-                order = null;
             }
             break;
         case "food":
@@ -120,6 +120,11 @@ function calc() {
             break;
         case "enter":
             if(showpopup === null){
+                deleteResult();
+                price = null;
+                key = null;
+                order = null;
+            }else{
                 var links = document.getElementsByTagName('div');
                 for (var i = 0; i < links.length; i++) {
                     if (links[i].id === "setting"){
@@ -129,11 +134,6 @@ function calc() {
                     }
                 }
                 showpopup = 1;
-            }else{
-                deleteResult();
-                price = null;
-                key = null;
-                order = null;
             }
             break;
     }
