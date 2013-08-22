@@ -62,52 +62,80 @@ function settingsPopUp(Name, Value){
 
 function calc() {
     window.clearTimeout(timeoutID);
-    if(showpopup === null){
     //alert(this.className);
     switch (this.className) {
         case "keypad":
-            if (key === null) {
-                key = parseInt(this.innerHTML);
-            } else {
-                key += this.innerHTML;
+            if(showpopup === null){
+                if (key === null) {
+                    key = parseInt(this.innerHTML);
+                } else {
+                    key += this.innerHTML;
+                }
             }
             break;
         case "cancel":
-            deleteResult();
-            document.getElementById("result").children[1].innerHTML = 0;
-            price = null;
-            key = null;
-            order = null;
+            if(showpopup === null){
+                var links = document.getElementsByTagName('div');
+                for (var i = 0; i < links.length; i++) {
+                    if (links[i].id === "setting" ){
+                        links[i].className = "hidden";
+                    }else{
+                        links[i].style.opacity = 1;
+                    }
+                }
+                showpopup = 1;
+            }else{
+                deleteResult();
+                document.getElementById("result").children[1].innerHTML = 0;
+                price = null;
+                key = null;
+                order = null;
+            }
             break;
         case "food":
-            if (key === null) {
-                key = 1;
+            if(showpopup === null){
+                if (key === null) {
+                    key = 1;
+                }
+                price = this.id;
+                order = this.innerHTML;
+                displayResult();
+                price = null;
+                key = null;
+                order = null;
             }
-            price = this.id;
-            order = this.innerHTML;
-            displayResult();
-            price = null;
-            key = null;
-            order = null;
             break;
         case "drink":
-            if (key === null) {
-                key = 1;
+            if(showpopup === null){
+                if (key === null) {
+                    key = 1;
+                }
+                price = this.id;
+                order = this.innerHTML;
+                displayResult();
+                price = null;
+                key = null;
+                order = null;
             }
-            price = this.id;
-            order = this.innerHTML;
-            displayResult();
-            price = null;
-            key = null;
-            order = null;
             break;
         case "enter":
-            deleteResult();
-            price = null;
-            key = null;
-            order = null;
+            if(showpopup === null){
+                var links = document.getElementsByTagName('div');
+                for (var i = 0; i < links.length; i++) {
+                    if (links[i].id === "setting"){
+                        links[i].className = "hidden";
+                    }else{
+                        links[i].style.opacity = 1;
+                    }
+                }
+                showpopup = 1;
+            }else{
+                deleteResult();
+                price = null;
+                key = null;
+                order = null;
+            }
             break;
-    }
     }
     return false;
 }
