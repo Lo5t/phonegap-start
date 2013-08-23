@@ -232,7 +232,6 @@ function saveProducts(){
             };
         }
     } 
-    alert("saved");
     window.localStorage.setItem("produxtList", JSON.stringify(prodArray));
 }
 
@@ -240,16 +239,12 @@ function loadToDoList(){
     // use the local storage API load the JSON formatted to-do list, and decode it
     var theList = JSON.parse(window.localStorage.getItem("produxtList"));
     if (null == theList || theList == "null"){
-        alert("no data to load");
     }
     else{
-        alert("loading data");
         var links = document.getElementsByTagName('td');
         for (var i = 0; i < links.length; i++) {
             if(links[i].className === "food" || links[i].className === "drink"){
-                alert(theList["row" + i]["Name"]);
                 links[i].innerHTML = theList["row" + i]["Name"];
-                alert(theList["row" + i]["Value"]);
                 links[i].id = theList["row" + i]["Value"];
             }
         } 
