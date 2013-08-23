@@ -18,6 +18,7 @@ var elm;
 var timeoutID;
 
 function pageSetUp() {
+    loadToDoList;
     //document.getElementsById('canceltd').onclick = show;
     var links = document.getElementsByTagName('td');
     //document.getElementsByTagName('a');
@@ -138,6 +139,7 @@ function calc() {
                     }
                 }
                 showpopup = null;
+                saveProducts;
             }
             break;
     }
@@ -217,6 +219,34 @@ function inArray(needle, haystack) {
     }
     return returnVal;
 }
+
+function saveProducts(){
+    var prodArray = {};
+    var links = document.getElementsByTagName('td');
+    for (var i = 0; i < links.length; i++) {
+        if(links[i].className === "food" || links[i].className === "drink"){
+            prodArray["row" + i] =
+            {
+                Name :  links[i].innerHTML,
+                Value : links[i].id
+            };
+        }
+    } 
+    window.localStorage.setItem("produxtList", JSON.stringify(prodArray));
+}
+
+function loadToDoList(){
+    // use the local storage API load the JSON formatted to-do list, and decode it
+    var theList = JSON.parse(window.localStorage.getItem("produxtList"));
+    var links = document.getElementsByTagName('td');
+    for (var i = 0; i < links.length; i++) {
+        if(links[i].className === "food" || links[i].className === "drink"){
+            links[i].innerHTML = theList["row" + i]["Name"];
+            links[i].id = theList["row" + i]["Value"];
+        }
+    } 
+}
+
 
 /*
 $(function () {
