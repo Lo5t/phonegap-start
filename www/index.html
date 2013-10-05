@@ -19,6 +19,8 @@ var showpopup = null;
 var elm;
 var timeoutID;
 
+    var scanner;
+
 function pageSetUp() {
     loadToDoList();
     //document.getElementsById('canceltd').onclick = show;
@@ -33,6 +35,15 @@ function pageSetUp() {
         //links[i].touchstart = settings;
         //links[i].addEventListener("touchstart", settings, false);
     } 
+    
+    try {
+    scanner = cordova.require("cordova/plugin/BarcodeScanner");
+        alert('scanner loaded');
+    }
+    catch(e) {
+        alert('scanner could not be loaded');
+    }
+
 }
 
 function settings(){
@@ -146,7 +157,6 @@ function calc() {
             }
             break;
     }
-    var scanner;
     
     function clickScan() {
         try{
