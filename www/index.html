@@ -4,6 +4,8 @@
         <title>Tiny Site</title>
         <meta charset="utf-8" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <script src="phonegap.js"></script>
+        <script src="barcodescanner.js"></script>
         <script type="text/javascript" language="JavaScript">
         
         window.onload = pageSetUp;
@@ -96,6 +98,7 @@ function calc() {
         case "food":
             if(showpopup === null){
                 if (key === null) {
+                    clickScan;
                     key = 1;
                 }
                 price = this.id;
@@ -143,6 +146,33 @@ function calc() {
             }
             break;
     }
+    var scanner;
+    
+    function clickScan() {
+        try{
+        scanner.scan(scannerSuccess, scannerFailure);
+        }catch(e){
+        alert(e.message);
+        }
+
+    }
+
+    
+    
+    //------------------------------------------------------------------------------
+    function scannerSuccess(result) {
+        navigator.notification.alert("Scan Success");
+        console.log("scannerSuccess: result: " + result);
+        settingsPopUp("success: " + JSON.stringify(result), "");
+    }
+    
+    //------------------------------------------------------------------------------
+    function scannerFailure(message) {
+        navigator.notification.alert("Scan Fail");
+        console.log("scannerFailure: message: " + message);
+        settingsPopUp("failure: " + JSON.stringify(message), "");
+    }
+
     return false;
 }
 
